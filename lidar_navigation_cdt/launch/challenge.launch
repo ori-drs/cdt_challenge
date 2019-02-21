@@ -1,0 +1,18 @@
+<launch>
+
+  <!-- Launch the grid map filters demo node. -->
+  <node pkg="lidar_navigation_cdt" type="challenge_node" name="challenge_node" output="screen">
+    <!-- Input topic -->
+    <param name="input_topic" value="/elevation_mapping/elevation_map" />
+
+    <!-- Demo mode or online -->
+    <param name="demo_mode" value="false" />
+    <!-- Load grid map filter chain configuration -->
+    <!-- shared in both demos and challenge repos -->
+    <rosparam command="load" file="$(find lidar_navigation_cdt)/config/filters_demo_filter_chain.yaml" />
+  </node>
+
+  <!-- Load the general parameters (except for filter chain) for this demo. -->
+  <!-- shared in both demos and challenge repos -->
+  <rosparam command="load" file="$(find lidar_navigation_cdt)/config/filters_demo.yaml" />
+</launch>
