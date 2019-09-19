@@ -22,7 +22,7 @@
   <!-- Path to the rqt perspective file -->
   <arg name="rqt_perspective_path"                    default="$(find anymal_b_navigation_ui)/config/rqt/rqt.perspective"/>
   <!-- Specify if ICP mapper should load a map on launch -->
-  <arg name="global_icp_load_map_on_launch"                  default="false"/>
+  <arg name="icp_localization_load_map_on_launch"                  default="false"/>
 
   <!-- Simulation -->
   <include file="$(find anymal_boxy_sim)/launch/sim.launch">
@@ -46,7 +46,7 @@
     <arg name="data_package"                          value="$(arg data_package)"/>
     <arg name="world"                                 value="$(arg world)"/>
     <arg name="run_icp"                               value="$(eval not simulate_localizer)"/>
-    <arg name="global_icp_load_map_on_launch"                value="$(arg global_icp_load_map_on_launch)"/>
+    <arg name="icp_localization_load_map_on_launch"                value="$(arg icp_localization_load_map_on_launch)"/>
   </include>
 
   <!-- Navigation user interface -->

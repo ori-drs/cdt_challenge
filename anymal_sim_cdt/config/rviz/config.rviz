@@ -345,7 +345,7 @@ Visualization Manager:
               Show Trail: false
               Value: true
           Name: RobotModel
-          Robot Description: quadruped_description
+          Robot Description: anymal_description
           TF Prefix: ""
           Update Interval: 0
           Value: true
@@ -563,7 +563,7 @@ Visualization Manager:
             Expand Tree: false
             Link Tree Style: Links in Alphabetic Order
           Name: Free Gait Virtual Preview Robot
-          Robot Description: quadruped_description
+          Robot Description: anymal_description
           TF Prefix: virtual_preview
           Update Interval: 0
           Value: false
@@ -606,7 +606,7 @@ Visualization Manager:
             Expand Tree: false
             Link Tree Style: Links in Alphabetic Order
           Name: Free Gait Real Preview Robot
-          Robot Description: quadruped_description
+          Robot Description: anymal_description
           TF Prefix: real_preview
           Update Interval: 0
           Value: false
