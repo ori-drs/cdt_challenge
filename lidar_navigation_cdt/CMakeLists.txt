@@ -63,13 +63,13 @@ include_directories(
 
 ### CDT Navigation Demo
 add_executable(
-  challenge_node
-  src/challenge_node.cpp
-  src/Challenge.cpp
+  lidar_navigation_node
+  src/lidar_navigation_node.cpp
+  src/lidar_navigation.cpp
 )
 
 target_link_libraries(
-  challenge_node
+  lidar_navigation_node
   ${catkin_LIBRARIES}
 )
 
@@ -88,7 +88,7 @@ target_link_libraries(
 
 # Mark executables and/or libraries for installation
 install(
-  TARGETS challenge_node
+  TARGETS lidar_navigation_node
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}

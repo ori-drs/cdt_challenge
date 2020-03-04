@@ -1,7 +1,7 @@
 <launch>
 
   <!-- Launch the grid map filters demo node. -->
-  <node pkg="lidar_navigation_cdt" type="challenge_node" name="challenge_node" output="screen">
+  <node pkg="lidar_navigation_cdt" type="lidar_navigation_node" name="lidar_navigation_node" output="screen">
     <!-- Input topic -->
     <param name="input_topic" value="/elevation_mapping/elevation_map" />
 
