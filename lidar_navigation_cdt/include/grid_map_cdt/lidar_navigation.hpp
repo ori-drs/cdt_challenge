@@ -1,5 +1,5 @@
 /*
- * NavigationDemo.hpp
+ * lidar_navigation.hpp
  *
  *  Created on: Aug 16, 2017
  *      Author: Peter Fankhauser
@@ -29,7 +29,7 @@ namespace grid_map_demos {
  * Applies a chain of grid map filters to a topic and
  * republishes the resulting grid map.
  */
-class NavigationDemo
+class LidarNavigation
 {
  public:
 
@@ -38,12 +38,12 @@ class NavigationDemo
    * @param nodeHandle the ROS node handle.
    * @param success signalizes if filter is configured ok or not.
    */
-  NavigationDemo(ros::NodeHandle& nodeHandle, bool& success);
+  LidarNavigation(ros::NodeHandle& nodeHandle, bool& success);
 
   /*!
    * Destructor.
    */
-  virtual ~NavigationDemo();
+  virtual ~LidarNavigation();
 
   /*!
   * Reads and verifies the ROS parameters.

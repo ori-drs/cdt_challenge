@@ -1,5 +1,5 @@
 /*
- * NavigationDemo.cpp
+ * lidar_navigation.cpp
  *
  *  Created on: Aug 16, 2017
  *      Author: Peter Fankhauser
@@ -28,7 +28,7 @@ using namespace std::chrono;
 
 namespace grid_map_demos {
 
-NavigationDemo::NavigationDemo(ros::NodeHandle& nodeHandle, bool& success)
+LidarNavigation::LidarNavigation(ros::NodeHandle& nodeHandle, bool& success)
     : nodeHandle_(nodeHandle),
       filterChain_("grid_map::GridMap"),
       demoMode_(false)
@@ -38,7 +38,7 @@ NavigationDemo::NavigationDemo(ros::NodeHandle& nodeHandle, bool& success)
     return;
   }
 
-  subscriber_ = nodeHandle_.subscribe(inputTopic_, 1, &NavigationDemo::callback, this);
+  subscriber_ = nodeHandle_.subscribe(inputTopic_, 1, &LidarNavigation::callback, this);
   listener_ = new tf::TransformListener();
 
   outputGridmapPub_ = nodeHandle_.advertise<grid_map_msgs::GridMap>("/filtered_map", 1, true);
@@ -60,12 +60,12 @@ NavigationDemo::NavigationDemo(ros::NodeHandle& nodeHandle, bool& success)
 }
 
 
-NavigationDemo::~NavigationDemo()
+LidarNavigation::~LidarNavigation()
 {
 }
 
 
-bool NavigationDemo::readParameters()
+bool LidarNavigation::readParameters()
 {
   if (!nodeHandle_.getParam("input_topic", inputTopic_)) {
     ROS_ERROR("Could not read parameter `input_topic`.");
@@ -83,12 +83,12 @@ bool NavigationDemo::readParameters()
 }
 
 
-void NavigationDemo::tic(){
+void LidarNavigation::tic(){
   lastTime_ = high_resolution_clock::now();
 }
 
 
-std::chrono::duration<double> NavigationDemo::toc(){
+std::chrono::duration<double> LidarNavigation::toc(){
   auto nowTime = high_resolution_clock::now();
   duration<double> elapsedTime = duration_cast<milliseconds>(nowTime - lastTime_);
   lastTime_ = nowTime;
@@ -97,7 +97,7 @@ std::chrono::duration<double> NavigationDemo::toc(){
 }
 
 
-void NavigationDemo::callback(const grid_map_msgs::GridMap& message)
+void LidarNavigation::callback(const grid_map_msgs::GridMap& message)
 {
   if (!plannerEnabled_){
     std::cout << "planner enabled. at the goal? grab a beer!\n";
@@ -149,7 +149,7 @@ void NavigationDemo::callback(const grid_map_msgs::GridMap& message)
 
 }
 
-bool NavigationDemo::planCarrot(const grid_map_msgs::GridMap& message,
+bool LidarNavigation::planCarrot(const grid_map_msgs::GridMap& message,
   Eigen::Isometry3d pose_robot, Position pos_goal,
   Eigen::Isometry3d& pose_chosen_carrot)
 {
