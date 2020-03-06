@@ -1,4 +1,4 @@
-#include "grid_map_cdt/lidar_navigation.hpp"
+#include "lidar_navigation_cdt/lidar_navigation.hpp"
 #include <ros/ros.h>
 
 int main(int argc, char** argv)

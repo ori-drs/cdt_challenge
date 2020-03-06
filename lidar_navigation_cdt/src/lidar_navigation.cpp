@@ -7,7 +7,7 @@
  *
  */
 
-#include "grid_map_cdt/lidar_navigation.hpp"
+#include "lidar_navigation_cdt/lidar_navigation.hpp"
 #include <tf_conversions/tf_eigen.h>
 #include <grid_map_cv/grid_map_cv.hpp>
 
