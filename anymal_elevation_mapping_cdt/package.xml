@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<package format="2">
+
+  <name>anymal_elevation_mapping_cdt</name>
+  <version>0.5.1</version>
+  <description>Elevation mapping launch and configuration files for ANYmal (DRS variants).</description>
+  
+  <license>Proprietary</license>
+  
+  <author email="pfankhauser@anybotics.com">Peter Fankhauser</author>
+  <maintainer email="pfankhauser@anybotics.com">Peter Fankhauser</maintainer>
+  
+  <url type="website">https://bitbucket.org/leggedrobotics/anymal_navigation</url>
+  <url type="bugtracker">https://bitbucket.org/leggedrobotics/anymal_navigation/issues</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>elevation_mapping</depend>
+
+</package>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<launch>
+
+  <include file="$(find anymal_elevation_mapping_cdt)/launch/elevation_mapping_core.launch">
+    <arg name="sensor" default="vlp16_rsD435"/>
+  </include>
+
+</launch>
