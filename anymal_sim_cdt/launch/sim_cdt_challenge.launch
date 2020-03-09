@@ -19,4 +19,7 @@
   <rosparam param="/cdt_challange/goal_x">14.5</rosparam>
   <rosparam param="/cdt_challange/goal_y">4.0</rosparam>
 
+  <node pkg="anymal_sim_cdt" type="goal_placer_node" name="goal_placer_node" output="screen">
+  </node>
+
 </launch>

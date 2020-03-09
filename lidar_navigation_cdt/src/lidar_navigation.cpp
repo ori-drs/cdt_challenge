@@ -165,7 +165,6 @@ void LidarNavigation::callback(const grid_map_msgs::GridMap& message)
 
 void LidarNavigation::goalCallback(const geometry_msgs::Point& message)
 {
-  ROS_INFO("New goal received: (%f, %f)", message.x, message.y);
   goal_(0) = message.x;
   goal_(1) = message.y;
 }
