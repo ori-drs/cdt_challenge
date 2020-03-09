@@ -15,4 +15,8 @@
     <arg name="yaw"                                     default="0.0"/>
 
   </include>
+  
+  <rosparam param="/cdt_challange/goal_x">14.5</rosparam>
+  <rosparam param="/cdt_challange/goal_y">4.0</rosparam>
+
 </launch>

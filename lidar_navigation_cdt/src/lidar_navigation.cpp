@@ -40,6 +40,7 @@ LidarNavigation::LidarNavigation(ros::NodeHandle& nodeHandle, bool& success)
 
   subscriber_ = nodeHandle_.subscribe(inputTopic_, 1, &LidarNavigation::callback, this);
   listener_ = new tf::TransformListener();
+  goalSub_ = nodeHandle_.subscribe(goalTopic_, 1, &LidarNavigation::goalCallback, this);
 
   outputGridmapPub_ = nodeHandle_.advertise<grid_map_msgs::GridMap>("/filtered_map", 1, true);
   footstepPlanRequestPub_ = nodeHandle_.advertise<geometry_msgs::PoseStamped>("/footstep_plan_request", 10);
@@ -72,12 +73,25 @@ bool LidarNavigation::readParameters()
     return false;
   }
   nodeHandle_.param("filter_chain_parameter_name", filterChainParametersName_, std::string("grid_map_filters"));
-  
+
   nodeHandle_.param("demo_mode", demoMode_, true);
   if (demoMode_)
     ROS_INFO("In demo mode [%d]. will use a hard coded gridmap bag and robot pose", int(demoMode_) );
   else
     ROS_INFO("In live mode [%d]. will listen for poses continuously", int(demoMode_) );
+
+  if (nodeHandle_.hasParam("/cdt_challange/goal_x") && nodeHandle_.hasParam("/cdt_challange/goal_y")){
+    double goal_x, goal_y;
+    nodeHandle_.param("/cdt_challange/goal_x", goal_x, 14.5);
+    nodeHandle_.param("/cdt_challange/goal_y", goal_y, 4.0);
+
+    goal_(0) = goal_x;
+    goal_(1) = goal_y;
+  } else {
+    ROS_INFO("Goal information is not available in rosparam - listening to goals on topic '/cdt_challange/goal'. ");
+  }
+
+  nodeHandle_.param("/cdt_challange/goal_topic", goalTopic_, std::string("/cdt_challange/goal"));
 
   return true;
 }
@@ -105,12 +119,12 @@ void LidarNavigation::callback(const grid_map_msgs::GridMap& message)
   }
 
   // The all important position goal - get the robot there
-  Position pos_goal(14.5, 4.0);
+  Position pos_goal = goal_;
 
   Eigen::Isometry3d pose_robot = Eigen::Isometry3d::Identity();
   if(demoMode_){ // demoMode
 
-    Eigen::Vector3d robot_xyz = Eigen::Vector3d(0.0,0.0,0); //rpy
+    Eigen::Vector3d robot_xyz = Eigen::Vector3d(0.0,0.0,0); //xyz
     Eigen::Vector3d robot_rpy = Eigen::Vector3d(0,0,0); //rpy
 
     pose_robot.setIdentity();
@@ -147,6 +161,13 @@ void LidarNavigation::callback(const grid_map_msgs::GridMap& message)
     footstepPlanRequestPub_.publish(m);
   }
 
+}
+
+void LidarNavigation::goalCallback(const geometry_msgs::Point& message)
+{
+  ROS_INFO("New goal received: (%f, %f)", message.x, message.y);
+  goal_(0) = message.x;
+  goal_(1) = message.y;
 }
 
 bool LidarNavigation::planCarrot(const grid_map_msgs::GridMap& message,

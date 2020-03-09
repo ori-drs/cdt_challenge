@@ -58,6 +58,12 @@ class LidarNavigation
   void callback(const grid_map_msgs::GridMap& message);
 
 
+  /*!
+   * Callback method for the incoming goal message.
+   * @param message the incoming message.
+   */
+  void goalCallback(const geometry_msgs::Point& message);
+
   // true - planning is good. send carrot.
   // false - planning isn't working or its disabled. don't send it
   bool planCarrot(const grid_map_msgs::GridMap& message,
@@ -78,7 +84,7 @@ class LidarNavigation
   //! Name of the output grid map topic.
   std::string outputTopic_;
 
-  //! Grid map subscriber
+  //! Grid map subscriber. 
   ros::Subscriber subscriber_;
 
   //! Grid map publisher.
@@ -93,6 +99,12 @@ class LidarNavigation
   //! Filter chain parameters name.
   std::string filterChainParametersName_;
 
+  //! Name of the input goal topic. 
+  std::string goalTopic_;
+
+  //! Goal subscriber. 
+  ros::Subscriber goalSub_;
+
   tf::TransformListener* listener_;
 
 
@@ -102,6 +114,8 @@ class LidarNavigation
   bool verboseTimer_;
   bool plannerEnabled_;
   bool demoMode_;
+
+  grid_map::Position goal_;
 
 };
 
