@@ -4,6 +4,7 @@
   <node pkg="lidar_navigation_cdt" type="lidar_navigation_node" name="lidar_navigation_node" output="screen">
     <!-- Input topic -->
     <param name="input_topic" value="/elevation_mapping/elevation_map" />
+    <!-- <param name="input_topic" value="/elevation_mapping_lidar/elevation_map" /> -->
 
     <!-- Demo mode or online -->
     <param name="demo_mode" value="false" />
