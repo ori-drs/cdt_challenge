@@ -21,8 +21,6 @@
   <arg name="rviz_config_path"                        default="$(find anymal_sim_cdt)/config/rviz/config.rviz"/>
   <!-- Path to the rqt perspective file -->
   <arg name="rqt_perspective_path"                    default="$(find anymal_b_navigation_ui)/config/rqt/rqt.perspective"/>
-  <!-- Specify if ICP mapper should load a map on launch -->
-  <arg name="icp_localization_load_map_on_launch"                  default="false"/>
 
   <!-- Simulation -->
   <include file="$(find anymal_boxy_sim)/launch/sim.launch">
@@ -45,8 +43,6 @@
     <arg name="simulation"                            value="true"/>
     <arg name="data_package"                          value="$(arg data_package)"/>
     <arg name="world"                                 value="$(arg world)"/>
-    <arg name="run_icp"                               value="$(eval not simulate_localizer)"/>
-    <arg name="icp_localization_load_map_on_launch"                value="$(arg icp_localization_load_map_on_launch)"/>
   </include>
 
   <!-- Navigation user interface -->
