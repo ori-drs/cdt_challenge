@@ -11,14 +11,9 @@ GoalPlacer::GoalPlacer(ros::NodeHandle& nodeHandle) :
 
   goalPub_ = nodeHandle_.advertise<geometry_msgs::Point>("/cdt_challange/goal", 10);
 
-  goals_x_.push_back(0.0);
-  goals_y_.push_back(0.0);
+  nodeHandle_.getParam("/cdt_challange/goals_x", goals_x_);
+  nodeHandle_.getParam("/cdt_challange/goals_y", goals_y_);
 
-  goals_x_.push_back(1.0);
-  goals_y_.push_back(1.0);
-
-  goals_x_.push_back(14.5);
-  goals_y_.push_back(4.0);
 }
 
 GoalPlacer::~GoalPlacer(){
