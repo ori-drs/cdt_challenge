@@ -31,7 +31,8 @@ namespace grid_map_demos {
 LidarNavigation::LidarNavigation(ros::NodeHandle& nodeHandle, bool& success)
     : nodeHandle_(nodeHandle),
       filterChain_("grid_map::GridMap"),
-      demoMode_(false)
+      demoMode_(false), 
+      remainingGoalCounter_(0)
 {
   if (!readParameters()) {
     success = false;
@@ -41,6 +42,7 @@ LidarNavigation::LidarNavigation(ros::NodeHandle& nodeHandle, bool& success)
   subscriber_ = nodeHandle_.subscribe(inputTopic_, 1, &LidarNavigation::callback, this);
   listener_ = new tf::TransformListener();
   goalSub_ = nodeHandle_.subscribe(goalTopic_, 1, &LidarNavigation::goalCallback, this);
+  goalCounterSub_ = nodeHandle_.subscribe(goalCounterTopic_, 1, &LidarNavigation::goalCounterCallback, this);
 
   outputGridmapPub_ = nodeHandle_.advertise<grid_map_msgs::GridMap>("/filtered_map", 1, true);
   footstepPlanRequestPub_ = nodeHandle_.advertise<geometry_msgs::PoseStamped>("/footstep_plan_request", 10);
@@ -92,6 +94,7 @@ bool LidarNavigation::readParameters()
   }
 
   nodeHandle_.param("/cdt_challange/goal_topic", goalTopic_, std::string("/cdt_challange/goal"));
+  nodeHandle_.param("/cdt_challange/goal_counter_topic", goalCounterTopic_, std::string("/cdt_challange/remaining_goal_counter"));
 
   return true;
 }
@@ -169,6 +172,10 @@ void LidarNavigation::goalCallback(const geometry_msgs::Point& message)
   goal_(1) = message.y;
 }
 
+void LidarNavigation::goalCounterCallback(const std_msgs::Int16& message){
+  remainingGoalCounter_ = message.data;
+}
+
 bool LidarNavigation::planCarrot(const grid_map_msgs::GridMap& message,
   Eigen::Isometry3d pose_robot, Position pos_goal,
   Eigen::Isometry3d& pose_chosen_carrot)
@@ -199,14 +206,17 @@ bool LidarNavigation::planCarrot(const grid_map_msgs::GridMap& message,
     pose_chosen_carrot_relative.rotate( motion_R );
     pose_chosen_carrot = pose_robot * pose_chosen_carrot_relative;
     std::cout << current_dist_to_goal << "m to goal. carrot is goal\n";
-    // disable carrot planner
-    plannerEnabled_ = false;
 
-    // Send message to position_controller to start free gait action
-    std_msgs::Int16 actionMsg;
-    actionMsg.data = 1;
-    ros::Duration(1.0).sleep();
-    actionPub_.publish(actionMsg);
+    if (remainingGoalCounter_ == 0){
+      // disable carrot planner
+      plannerEnabled_ = false;
+
+      // Send message to position_controller to start free gait action
+      std_msgs::Int16 actionMsg;
+      actionMsg.data = 1;
+      ros::Duration(1.0).sleep();
+      actionPub_.publish(actionMsg);
+    }
 
     return true;
   }
