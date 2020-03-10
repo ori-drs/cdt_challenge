@@ -10,6 +10,7 @@
 #include <tf_conversions/tf_eigen.h>
 
 #include <geometry_msgs/Point.h>
+#include <std_msgs/Int16.h>
 
 class GoalPlacer{
 public: 
@@ -21,6 +22,8 @@ private:
   ros::NodeHandle& nodeHandle_;
 
   ros::Publisher goalPub_;
+
+  ros::Publisher goalCounterPub_;
 
   tf::TransformListener* listener_;
 

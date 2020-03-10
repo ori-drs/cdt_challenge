@@ -10,6 +10,7 @@ GoalPlacer::GoalPlacer(ros::NodeHandle& nodeHandle) :
   listener_ = new tf::TransformListener();
 
   goalPub_ = nodeHandle_.advertise<geometry_msgs::Point>("/cdt_challange/goal", 10);
+  goalCounterPub_ = nodeHandle_.advertise<std_msgs::Int16>("/cdt_challange/remaining_goal_counter", 10);
 
   nodeHandle_.getParam("/cdt_challange/goals_x", goals_x_);
   nodeHandle_.getParam("/cdt_challange/goals_y", goals_y_);
@@ -37,7 +38,7 @@ void GoalPlacer::publishGoal(void){
   Eigen::Vector2d pos_robot_2d = pose_robot.translation().head(2);
   double distance_to_goal = (goal - pos_robot_2d).norm();
 
-  if (distance_to_goal < 0.5){
+  if (distance_to_goal < 1.5){
     current_goal_index_++;
   }
 
@@ -46,9 +47,13 @@ void GoalPlacer::publishGoal(void){
     return;
   }
 
-  geometry_msgs::Point msg;
-  msg.x = goals_y_[current_goal_index_];
-  msg.y = goals_y_[current_goal_index_];
-  msg.z = 0.0;
-  goalPub_.publish(msg);
+  geometry_msgs::Point goal_msg;
+  goal_msg.x = goals_x_[current_goal_index_];
+  goal_msg.y = goals_y_[current_goal_index_];
+  goal_msg.z = 0.0;
+  goalPub_.publish(goal_msg);
+
+  std_msgs::Int16 goal_counter_msg;
+  goal_counter_msg.data = goals_x_.size() - current_goal_index_ - 1;
+  goalCounterPub_.publish(goal_counter_msg);
 }

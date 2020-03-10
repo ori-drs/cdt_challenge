@@ -64,6 +64,12 @@ class LidarNavigation
    */
   void goalCallback(const geometry_msgs::Point& message);
 
+  /*!
+   * Callback method for the incoming remaining goal counter message.
+   * @param message the incoming message.
+   */
+  void goalCounterCallback(const std_msgs::Int16& message);
+
   // true - planning is good. send carrot.
   // false - planning isn't working or its disabled. don't send it
   bool planCarrot(const grid_map_msgs::GridMap& message,
@@ -100,13 +106,12 @@ class LidarNavigation
   std::string filterChainParametersName_;
 
   //! Name of the input goal topic. 
-  std::string goalTopic_;
+  std::string goalTopic_, goalCounterTopic_;
 
   //! Goal subscriber. 
-  ros::Subscriber goalSub_;
+  ros::Subscriber goalSub_, goalCounterSub_;
 
   tf::TransformListener* listener_;
-
 
   std::chrono::high_resolution_clock::time_point lastTime_;
 
@@ -116,6 +121,7 @@ class LidarNavigation
   bool demoMode_;
 
   grid_map::Position goal_;
+  int remainingGoalCounter_;
 
 };
 
