@@ -52,7 +52,7 @@ void GoalPlacer::publishGoal(void){
   }
 
   geometry_msgs::Point msg;
-  msg.x = goals_y_[current_goal_index_];
+  msg.x = goals_x_[current_goal_index_];
   msg.y = goals_y_[current_goal_index_];
   msg.z = 0.0;
   goalPub_.publish(msg);
