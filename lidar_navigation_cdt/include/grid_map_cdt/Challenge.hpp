@@ -14,7 +14,7 @@
 
 #include <grid_map_ros/grid_map_ros.hpp>
 
-#include <filters/filter_chain.h>
+#include <filters/filter_chain.hpp>
 #include <ros/ros.h>
 #include <string>
 #include <chrono>

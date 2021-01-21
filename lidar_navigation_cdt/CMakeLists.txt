@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.0.2)
 project(lidar_navigation_cdt)
 
 set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
@@ -59,6 +59,7 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
   ${EIGEN3_INCLUDE_DIR}
   ${OCTOMAP_INCLUDE_DIR}
+  ${OpenCV_INCLUDE_DIRS}
 )
 
 ### CDT Navigation Demo
@@ -71,11 +72,8 @@ add_executable(
 target_link_libraries(
   challenge_node
   ${catkin_LIBRARIES}
+  ${OpenCV_LIBS}
 )
-
-
-
-
 
 #############
 ## Install ##
