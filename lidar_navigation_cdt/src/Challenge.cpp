@@ -12,8 +12,8 @@
 #include <grid_map_cv/grid_map_cv.hpp>
 
 #include <opencv2/imgproc/imgproc.hpp>
-#include <cv.h>
-#include <highgui.h>
+#include <opencv2/core.hpp>
+#include <opencv2/highgui.hpp>
 
 #include <cv_bridge/cv_bridge.h>
 #include <sensor_msgs/image_encodings.h>

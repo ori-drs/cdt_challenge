@@ -20,7 +20,7 @@ Pass::Pass(ros::NodeHandle node_) {
 
   // Celebration after reaching the ultimate goal
   actionSub_     = node_.subscribe(std::string("/action_cmd"), 100, &Pass::startActionHandler, this);
-  controllerClient_ = node_.serviceClient<rocoma_msgs::SwitchController>("/anymal_highlevel_controller/switch_controller");
+  controllerClient_ = node_.serviceClient<control_unit_msgs::SwitchController>("/anymal_highlevel_controller/switch_controller");
   modeClient_ = node_.serviceClient<anymal_msgs::SwitchController>("/trot_ros/go_to_mode");
   actionClient_ = node_.serviceClient<free_gait_msgs::SendAction>("/free_gait_action_loader/send_action");
 

@@ -9,7 +9,7 @@
 
 // Used by the celebratory action
 #include <free_gait_msgs/SendAction.h>
-#include <rocoma_msgs/SwitchController.h>
+#include <control_unit_msgs/SwitchController.h>
 #include <anymal_msgs/SwitchController.h>
 
 #include <geometry_msgs/PoseWithCovarianceStamped.h>
@@ -48,6 +48,6 @@ class Pass{
     ros::Subscriber actionSub_;
     ros::ServiceClient estopClient_, controllerClient_, actionClient_, modeClient_;
     free_gait_msgs::SendAction actionSrv_;
-    rocoma_msgs::SwitchController controllerSrv_;
+    control_unit_msgs::SwitchController controllerSrv_;
     anymal_msgs::SwitchController modeSrv_;
 };
